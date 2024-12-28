@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 22, 2024 lúc 10:23 AM
+-- Thời gian đã tạo: Th12 28, 2024 lúc 07:00 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -24,13 +24,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `account`
+--
+
+CREATE TABLE `account` (
+  `id` int(11) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `account`
+--
+
+INSERT INTO `account` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'admin123123');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `classes`
 --
 
 CREATE TABLE `classes` (
   `id` int(11) NOT NULL,
   `class_name` varchar(100) DEFAULT NULL,
-  `schedule_time` varchar(50) DEFAULT NULL,
+  `schedule_date` date DEFAULT NULL,
+  `schedule_time` time DEFAULT NULL,
   `trainer_id` int(11) DEFAULT NULL,
   `max_members` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -39,17 +59,17 @@ CREATE TABLE `classes` (
 -- Đang đổ dữ liệu cho bảng `classes`
 --
 
-INSERT INTO `classes` (`id`, `class_name`, `schedule_time`, `trainer_id`, `max_members`) VALUES
-(1, 'Yoga cơ bản', 'Thứ 2 6:00 PM', 1, 15),
-(2, 'Cardio nâng cao', 'Thứ 3 7:00 AM', 2, 20),
-(3, 'Tập tạ cường độ cao', 'Thứ 4 5:00 PM', 3, 10),
-(4, 'HIIT đốt mỡ toàn thân', 'Thứ 5 6:00 PM', 4, 12),
-(5, 'Zumba cơ bản', 'Thứ 6 5:30 PM', 5, 18),
-(6, 'Boxing cơ bản', 'Thứ 7 4:00 PM', 6, 14),
-(7, 'Pilates nâng cao', 'Chủ nhật 8:00 AM', 7, 10),
-(8, 'CrossFit thử thách', 'Thứ 2 7:00 AM', 8, 12),
-(9, 'Aerobics giảm cân', 'Thứ 4 6:30 PM', 9, 20),
-(10, 'Lớp Stretching', 'Chủ nhật 5:00 PM', 10, 15);
+INSERT INTO `classes` (`id`, `class_name`, `schedule_date`, `schedule_time`, `trainer_id`, `max_members`) VALUES
+(1, 'Yoga cơ bản', '2024-03-01', '18:00:00', 1, 15),
+(2, 'Cardio nâng cao', '2024-03-02', '19:00:00', 2, 20),
+(3, 'Tập tạ cường độ cao', '2024-03-03', '17:00:00', 3, 10),
+(4, 'HIIT đốt mỡ toàn thân', '2024-03-04', '18:00:00', 4, 12),
+(5, 'Zumba cơ bản', '2024-03-05', '17:30:00', 5, 18),
+(6, 'Boxing cơ bản', '2024-03-06', '16:00:00', 6, 14),
+(7, 'Pilates nâng cao', '2024-03-07', '08:00:00', 7, 10),
+(8, 'CrossFit thử thách', '2024-03-08', '07:00:00', 8, 12),
+(9, 'Aerobics giảm cân', '2024-03-09', '18:30:00', 9, 20),
+(10, 'Lớp Stretching', '2024-03-10', '17:00:00', 10, 15);
 
 -- --------------------------------------------------------
 
@@ -103,24 +123,25 @@ CREATE TABLE `schedules` (
   `id` int(11) NOT NULL,
   `member_id` int(11) DEFAULT NULL,
   `class_id` int(11) DEFAULT NULL,
-  `schedule_date` date DEFAULT NULL
+  `schedule_date` date DEFAULT NULL,
+  `schedule_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `schedules`
 --
 
-INSERT INTO `schedules` (`id`, `member_id`, `class_id`, `schedule_date`) VALUES
-(1, 1, 3, '2024-03-01'),
-(2, 2, 2, '2024-03-02'),
-(3, 3, 4, '2024-03-03'),
-(4, 4, 1, '2024-03-04'),
-(5, 5, 5, '2024-03-05'),
-(6, 12, 6, '2024-03-06'),
-(7, 15, 7, '2024-03-07'),
-(8, 18, 8, '2024-03-08'),
-(9, 20, 9, '2024-03-09'),
-(10, 19, 10, '2024-03-10');
+INSERT INTO `schedules` (`id`, `member_id`, `class_id`, `schedule_date`, `schedule_time`) VALUES
+(1, 1, 3, '2024-03-01', '18:00:00'),
+(2, 5, 2, '2024-03-02', '19:00:00'),
+(3, 8, 4, '2024-03-03', '17:00:00'),
+(4, 10, 1, '2024-03-04', '18:00:00'),
+(5, 7, 5, '2024-03-05', '17:30:00'),
+(6, 12, 6, '2024-03-06', '16:00:00'),
+(7, 15, 7, '2024-03-07', '08:00:00'),
+(8, 18, 8, '2024-03-08', '07:00:00'),
+(9, 20, 9, '2024-03-09', '18:30:00'),
+(10, 19, 10, '2024-03-10', '17:00:00');
 
 -- --------------------------------------------------------
 
